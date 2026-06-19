@@ -1,109 +1,120 @@
 # boringcode.dev
 
-A minimal landing page showcasing open-source projects from the boringcode-dev GitHub organization.
+A statically exported Next.js site for showcasing open-source projects from the `boringcode-dev` GitHub organization.
 
-[![Built with v0](https://img.shields.io/badge/Built%20with-v0.dev-black?style=for-the-badge)](https://v0.dev)
+## Live site
 
-## 🚀 Live Site
+- **Production**: [https://boringcode.dev](https://boringcode.dev)
 
-**[https://boringcode.dev](https://boringcode.dev)**
+## What it does
 
-## ✨ Features
+- Renders the BoringCode.dev organization homepage with custom branding
+- Fetches organization metadata and featured repositories from GitHub
+- Shows the top featured repositories on the landing page
+- Links to the full repository list on GitHub
+- Supports light/dark theme switching
+- Provides installable PWA behavior with a service worker and manifest
+- Includes sitemap, robots.txt, and structured metadata for SEO
 
-- **Responsive Design** - Works perfectly on desktop, tablet, and mobile
-- **Dark Mode Support** - Toggle between light and dark themes
-- **PWA Ready** - Install as a native app on iOS and Android
-- **GitHub Integration** - Automatically fetches and displays repositories
-- **SEO Optimized** - Proper meta tags, structured data, and sitemap
-- **Performance Focused** - Fast loading with optimized assets
+## Tech stack
 
-## 🛠️ Tech Stack
-
-- **Framework**: Next.js 15 with App Router
+- **Framework**: Next.js 15 (App Router)
+- **Rendering model**: Static HTML export
 - **Styling**: Tailwind CSS
-- **UI Components**: shadcn/ui
+- **UI components**: shadcn/ui
 - **Icons**: Lucide React
-- **Deployment**: Cloudflare Pages + Pages Functions
-- **PWA**: Service Worker with offline support
+- **Frontend hosting**: Cloudflare Pages
+- **Backend endpoint**: Cloudflare Pages Functions
+- **PWA**: Service worker + web app manifest
 
-## 📱 PWA Features
+## Runtime architecture
 
-- Install as native app on mobile devices
-- Offline support with service worker
-- Custom app icons and splash screens
-- iOS Safari status bar optimization
-- Background sync capabilities
+The site is deployed as a static export and uses a Pages Function for GitHub data.
 
-## 🎨 Design
+- Static frontend output: `out/`
+- Pages Function: `functions/api/github.js`
+- API contract used by the browser:
+  - `/api/github?type=org`
+  - `/api/github?type=repos`
 
-- Minimal, clean interface
-- Custom BoringCode.dev branding
-- Smooth hover animations
-- Responsive grid layout
-- Accessibility focused
+The Pages Function keeps GitHub access server-side and optionally uses `GITHUB_TOKEN` for higher rate limits.
 
-## 🔧 Development
+## Repository behavior
 
-This project is built and maintained using [v0.dev](https://v0.dev), Vercel's AI-powered frontend development tool.
+For repository data, the backend:
 
-### Local Development
+- fetches public repositories from `boringcode-dev`
+- filters out `.github` and `test` repositories
+- sorts featured repositories by star count
+- returns the top 9 repositories for the homepage
+- returns `totalCount` for the full filtered set
+
+## Local development
 
 ```bash
 # Clone the repository
 git clone https://github.com/boringcode-dev/boringcode.dev.git
+cd boringcode.dev
 
 # Install dependencies
 pnpm install
 
-# Run development server
+# Run the development server
 pnpm dev
 
-# Build for production
+# Build the production static export
 npx next build
 ```
 
-### Environment Variables
+## Environment variables
 
 ```bash
-# Optional but recommended for higher API rate limits
+# Optional but recommended for higher GitHub API rate limits
 GITHUB_TOKEN=your_github_token_here
 ```
 
-## ☁️ Cloudflare Deployment
+## Cloudflare deployment
 
 This project is configured for:
 
 - **Cloudflare Pages** for the static frontend
 - **Cloudflare Pages Functions** for `/api/github`
 
-The browser contract stays the same:
+Required deployment settings:
 
-- `/api/github?type=org`
-- `/api/github?type=repos`
+- **Framework preset**: `Next.js (Static HTML Export)`
+- **Build command**: `npx next build`
+- **Build output directory**: `out`
+- **Deploy command**: leave empty
+- **Root path**: `/`
 
-For the full setup and auto-deploy guide, see:
+For the detailed deployment runbook, see:
 
 - [`docs/cloudflare-pages.md`](docs/cloudflare-pages.md)
 
-## 📄 License
+## Project structure
+
+- `app/` — Next.js app routes and metadata routes
+- `components/` — UI and page components
+- `functions/` — Cloudflare Pages Functions
+- `public/` — static assets, icons, manifest, service worker
+- `docs/` — deployment notes
+
+## License
 
 This project is open source and available under the [MIT License](LICENSE).
 
-## 🤝 Contributing
+## Contributing
 
-Contributions are welcome! Feel free to:
+Contributions are welcome. Useful contributions include:
 
-- Report bugs
-- Suggest new features
-- Submit pull requests
-- Improve documentation
+- bug fixes
+- documentation improvements
+- UI polish
+- deployment and operational improvements
 
-## 📞 Contact
+## Contact
 
 - **Website**: [boringcode.dev](https://boringcode.dev)
 - **GitHub**: [@boringcode-dev](https://github.com/boringcode-dev)
 - **Location**: Vietnam 🇻🇳
-
----
-
-Built with ❤️ using [v0.dev](https://v0.dev)
