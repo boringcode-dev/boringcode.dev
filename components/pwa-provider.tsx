@@ -8,7 +8,7 @@ export function PWAProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     if ("serviceWorker" in navigator) {
       navigator.serviceWorker
-        .register("/sw")
+        .register("/sw.js")
         .then((registration) => {
           console.log("SW registered: ", registration)
         })

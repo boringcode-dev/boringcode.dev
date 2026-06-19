@@ -2,7 +2,6 @@
 
 A minimal landing page showcasing open-source projects from the boringcode-dev GitHub organization.
 
-[![Deployed on Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-black?style=for-the-badge&logo=vercel)](https://boringcode.dev)
 [![Built with v0](https://img.shields.io/badge/Built%20with-v0.dev-black?style=for-the-badge)](https://v0.dev)
 
 ## 🚀 Live Site
@@ -20,11 +19,11 @@ A minimal landing page showcasing open-source projects from the boringcode-dev G
 
 ## 🛠️ Tech Stack
 
-- **Framework**: Next.js 14 with App Router
+- **Framework**: Next.js 15 with App Router
 - **Styling**: Tailwind CSS
 - **UI Components**: shadcn/ui
 - **Icons**: Lucide React
-- **Deployment**: Vercel
+- **Deployment**: Cloudflare Pages + Pages Functions
 - **PWA**: Service Worker with offline support
 
 ## 📱 PWA Features
@@ -54,21 +53,37 @@ This project is built and maintained using [v0.dev](https://v0.dev), Vercel's AI
 git clone https://github.com/boringcode-dev/boringcode.dev.git
 
 # Install dependencies
-npm install
+pnpm install
 
 # Run development server
-npm run dev
+pnpm dev
 
 # Build for production
-npm run build
+npx next build
 ```
 
 ### Environment Variables
 
 ```bash
-# Optional: GitHub token for higher API rate limits
+# Optional but recommended for higher API rate limits
 GITHUB_TOKEN=your_github_token_here
 ```
+
+## ☁️ Cloudflare Deployment
+
+This project is configured for:
+
+- **Cloudflare Pages** for the static frontend
+- **Cloudflare Pages Functions** for `/api/github`
+
+The browser contract stays the same:
+
+- `/api/github?type=org`
+- `/api/github?type=repos`
+
+For the full setup and auto-deploy guide, see:
+
+- [`docs/cloudflare-pages.md`](docs/cloudflare-pages.md)
 
 ## 📄 License
 
